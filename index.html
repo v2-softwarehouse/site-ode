@@ -407,16 +407,14 @@ class GETUseCase : UseCase<String, Any> {
             <div id="Python" class="w3-container city" style="display:none">
               <pre>
                 <code>
-class GETAPIUseCase(UseCase[int, HousesToReturn]):
-  def __init__(self, repo: RepositoryAPI):
+class GETAPIUseCase(UseCase[int, Any]):
+  def __init__(self, repo: UseCaseRepository):
     self.repo = repo
 
-  def execute(self, param: int) -> Output[HousesToReturn]:
-    print("GETAPIUseCase.execute")
-    site = self.repo.do_fetch(page=param)
-    houses = self.repo.read_tags_from_site(site)
-    
-    return ValueOutput(HousesToReturn(houses))
+  def execute(self, param: int) -> Output[Any]:
+    fetch = self.repo.do_fetch(page=param)
+    return ValueOutput(fetch)
+
                 </code>
               </pre> 
             </div>
@@ -443,7 +441,23 @@ public class GETUseCase : UseCase<string, Any>
             </div>
 
             <div id="TScript" class="w3-container city" style="display:none">
-              
+              <pre>
+                <code>
+class GETUseCase extends UseCase<string, any> {
+    private repo: UseCaseRepository;
+
+    constructor(repo: UseCaseRepository) {
+        super();
+        this.repo = repo;
+    }
+
+    execute(param: string | null): Output<any> {
+        const fetch = this.repo.doFetch(param);
+        return new ValueOutput<any>(fetch);
+    }
+}
+                </code>
+              </pre>
             </div>
           </div>
         </div>
